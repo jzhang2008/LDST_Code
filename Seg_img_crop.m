@@ -1,0 +1,10 @@
+function [T,Tp,T_norm,T_mean,T_std]=Seg_img_crop(img,param,opt)
+wimgs=warpimg(img, affparam2mat(param.param), opt.tmplsize);
+T     = reshape(wimgs,prod(opt.tmplsize),opt.numsample);
+Tp    =T;
+T_mean= mean(T);
+T_std = std (T);
+T     =(T-ones(prod(opt.tmplsize),1)*T_mean)./(ones(prod(opt.tmplsize),1)*T_std);
+T_norm= sqrt(sum(T.^2,1));
+T     =T./(ones(prod(opt.tmplsize),1)*T_norm);
+% T     =Tk-ones(prod(opt.tmplsize),1)*mean(Tk);
